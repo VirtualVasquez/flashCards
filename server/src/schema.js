@@ -1,6 +1,18 @@
 const {gql} = require('apollo-server')
 
 const typeDefs = gql`
+    type Query{
+        getSubjects: [Subject]
+        getSubject(postID: ID!): Subject
+    }
+    # type Mutation{
+    #     reigster(registerInput: RegisterInput): User!
+    #     login(Username: String!, password: String!): User!
+    #     createSubject(title: String!): Subject!
+    #     deleteSubject(subjectId: ID!): String!
+    #     createCard(question: String!, answer: String!): FlashCard!
+    #     deleteCard(cardId: ID!): String!
+    # }
     "Users that log in an out"
     type User{
         id: ID!
@@ -31,9 +43,6 @@ const typeDefs = gql`
         question: String!
         answer: String!
     }
-    type Query{
-        getSubjects: [Subject]
-        getSubject(postID: ID!): Subject
-    }
+
 `
 module.exports = typeDefs;
