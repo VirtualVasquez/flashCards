@@ -1,14 +1,6 @@
 const {gql} = require('apollo-server')
 
 const typeDefs = gql`
-    # "Users that log in and out"
-    type User{
-        id: ID!
-        email: String!
-        token: String!
-        username: String!
-        createdAt: String!
-    }
     # "A given collection of flash cards"
     type Subject{
         id: ID!
@@ -23,9 +15,13 @@ const typeDefs = gql`
         question: String!
         answer: String!
     }
-    type Query{
-        getSubjects: [Subject]
-        getSubject(postID: ID!): Subject
+    # "Users that log in and out"
+    type User{
+        id: ID!
+        email: String!
+        token: String!
+        username: String!
+        createdAt: String!
     }
     # different kind of "type", given as an input to a resolver for it to return something
     input RegisterInput{
@@ -33,11 +29,17 @@ const typeDefs = gql`
         password: String!
         confirmPassword: String!
         email: String!
+    }    
+    type Query{
+        getSubjects: [Subject]
+        getSubject(postID: ID!): Subject
     }
     type Mutation{
         register(registerInput: RegisterInput): User!
         login(username: String!, password: String!): User!
+        createSubject(title: String!): Subject!
+        deleteSubject(subjectId:ID!):String!
+        createFlashCard(subjectId:String!, question:"String!, answer: String!): FlashCard!
     }
-
 `
 module.exports = typeDefs;
